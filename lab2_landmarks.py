@@ -103,7 +103,7 @@ def extract_features_labels():
     target_size = None
     labels_file = open(os.path.join(basedir, labels_filename), 'r')
     lines = labels_file.readlines()
-    gender_labels = {line.split(',')[0] : int(line.split(',')[1]) for line in lines[2:]}
+    gender_labels = {line.split(',')[0] : int(line.split(',')[2]) for line in lines[2:]}
     if os.path.isdir(images_dir):
         all_features = []
         all_labels = []
