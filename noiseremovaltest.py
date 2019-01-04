@@ -6,7 +6,6 @@ import numpy as np
 import datetime as dt
 from keras.preprocessing import image
 
-
 directory = './dataset/celebsa'
 labels = './dataset/data.csv'
 
