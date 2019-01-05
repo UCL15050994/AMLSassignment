@@ -74,7 +74,7 @@ for image_file in outliers:
 
 #Path to the new folder in which the images ready for further preprocessing
 #and classification will be placed
-new_dir = 'images1'
+new_dir = 'images2'
 
 #Copying the images (non-outliers) from the old directory to the new one
 for (root, directories, files) in os.walk('{0}'.format(directory)):
