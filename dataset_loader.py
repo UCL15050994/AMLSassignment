@@ -63,6 +63,10 @@ def get_data(form, label):
                 #to reduce training times and speed up hyperparametrization
                 resize_img = cv2.resize(img, (128, 128))
                 
+                #Update: Cropping the image to only include the top half for hair color classification
+                if label == 'hair_color':
+                     resize_img = resize_img[0:63,0:127]
+                         
                 #Appending the raw RGB values to the dataset list and 
                 #updating the labels list
                 f_dataset.append(resize_img)
@@ -72,12 +76,38 @@ def get_data(form, label):
         f_labels = newdf.loc[f_labels]
         f_labels = f_labels.values.tolist()
         
-        #Converting f_dataset and f_labels to numpy arrays
-        dataset_array = np.array(f_dataset)
-        labels_array = np.array(f_labels)
+        #Update: Filtering out mislabeled images for which hair color is labeled as -1
+        if label == 'hair_color':
+            
+            #Creating new lists to be dynamically populated with nonnegative labels and corresponding images
+            #that are correctly labeled
+            f_labels_new = []
+            f_dataset_new = []
+            
+            #Looping through the original f_labels list
+            for i in range(len(f_labels)):
+                
+                #Only include images and corresponding labels if the images are labeled correctly
+                if f_labels[i] != -1:
+                    f_labels_new.append(f_labels[i])
+                    f_dataset_new.append(f_dataset[i])
+                    
+            #Converting f_dataset_new and f_labels_new to numpy arrays       
+            dataset_array = np.array(f_dataset_new)
+            labels_array = np.array(f_labels_new)
+            
+            return dataset_array, labels_array
         
-        return dataset_array, labels_array
-    
+        #Proceed in the usual manner for other labels
+        else:
+            
+            #Converting f_dataset and f_labels to numpy arrays
+            dataset_array = np.array(f_dataset)
+            labels_array = np.array(f_labels)
+            
+            return dataset_array, labels_array
+        
+
     #If the facial landmarks are required
     elif form == 'landmarks':
         
