@@ -116,6 +116,7 @@ def extract_features_labels(col_name):
     target_size = None
     labels_file = open(os.path.join(basedir, labels_filename), 'r')
     lines = labels_file.readlines()
+    
     #Modification: indexing using keys for the dictionary D
     gender_labels = {line.split(',')[0] : int(line.split(',')[D[col_name]]) for line in lines[2:]}
     if os.path.isdir(images_dir):
@@ -137,3 +138,48 @@ def extract_features_labels(col_name):
     landmark_features = np.array(all_features)
     gender_labels = (np.array(all_labels) + 1)/2 # simply converts the -1 into 0, so male=0 and female=1
     return landmark_features, gender_labels
+
+#Modification: another version of the extract_features_labels function, only extracts features
+#Used for predictions on the unlabeled test set
+def extract_features(col_name):
+    """
+    This funtion extracts the landmarks features for all images in the folder 'dataset/celeba'.
+    It also extract the gender label for each image.
+    :return:
+        landmark_features:  an array containing 68 landmark points for each image in which a face was detected
+        gender_labels:      an array containing the gender label (male=0 and female=1) for each image in
+                            which a face was detected
+    """
+    #Modification: a basic dictionary for which the keys are strings 
+    #corresponding to the labels and the values are integers
+    D = {'hair_color':1, 'eyeglasses':2, 'smiling':3, 'young':4, 'human':5}
+    
+    #Modification: sorting the files alphanumerically
+    image_paths = [os.path.join(images_dir, l) for l in sorted(os.listdir(images_dir))]
+    target_size = None
+    labels_file = open(os.path.join(basedir, labels_filename), 'r')
+    lines = labels_file.readlines()
+    #Modification: indexing using keys for the dictionary D
+    gender_labels = {line.split(',')[0] : int(line.split(',')[D[col_name]]) for line in lines[2:]}
+    if os.path.isdir(images_dir):
+        all_features = []
+        all_labels = []
+        failed_files = []
+        for img_path in image_paths:
+            file_name= img_path.split('.')[1].split('/')[-1]
+
+            # load image
+            img = image.img_to_array(
+                image.load_img(img_path,
+                               target_size=target_size,
+                               interpolation='bicubic'))
+            features, _ = run_dlib_shape(img)
+            if features is not None:
+                all_features.append(features)
+                all_labels.append(gender_labels[file_name])
+            else:
+                failed_files.append(img_path.split('/')[-1])
+
+    landmark_features = np.array(all_features)
+    gender_labels = (np.array(all_labels) + 1)/2 # simply converts the -1 into 0, so male=0 and female=1
+    return landmark_features, failed_files
