@@ -1,6 +1,6 @@
 # AMLSassignment
 
-##Preamble
+## Preamble
 
 This is the git repository for the ELEC0132: Applied Machine Learning Systems module, linked to the submitted paper "Supervised Learning Methods for Facial Recognition and Classification". 
 
