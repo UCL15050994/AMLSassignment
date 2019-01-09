@@ -17,7 +17,7 @@ from joblib import load
 #Path to the folder containing saved models
 models_dir = './models/'
 
-#Path to the folder containing
+#Path to the folder containing new test set
 images_dir = './unseentestset'
 
 #Ensuring the correct directory
