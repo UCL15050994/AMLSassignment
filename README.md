@@ -13,15 +13,25 @@ The following is a link to the .zip file containing CSV prediction results as we
 Python 3.6.6 was used throughout this project. In order for the code to run, please ensure that the following libraries and packages are installed:
 
 dlib  19.16.0
+
 joblib  0.13.0
+
 Keras  2.2.4
+
 Keras-Applications  1.0.6
+
 Keras-Preprocessing  1.0.5
+
 numpy  1.15.4
+
 opencv-python  3.4.4.19
+
 pandas  0.23.4
+
 scikit-learn  0.20.1
+
 scipy  1.1.0
+
 tensorflow  1.12.0
 
 ## Running the Code
