@@ -6,7 +6,7 @@ This is the git repository for the ELEC0132: Applied Machine Learning Systems mo
 
 The following is a link to the .zip file containing CSV prediction results as well as the code for training and testing all of the classification models discussed in the report:
 
-<link to zip file>
+https://www.dropbox.com/s/qoazxc4jxnskkeg/AMLSAssignment.zip?dl=0
 
 ## Python Version and Library Installations
 
