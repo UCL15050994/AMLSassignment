@@ -15,6 +15,7 @@ import cv2
 import dlib
 import shutil
 import numpy as np
+
 from keras.preprocessing import image
 
 #Path to the original dataset as well as the labels
