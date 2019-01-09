@@ -37,7 +37,7 @@ X_test = np.reshape(X_test, (X_test.shape[0], -1))
 #Specifying the classifier with the right hyperparameters
 classifier = svm.SVC(gamma = 'auto', kernel = 'linear', C = 0.01)
 
-#Fitting the data
+#Training the model
 classifier.fit(X_train, y_train)
 
 #Saving the classifier in the models folder in the directory
